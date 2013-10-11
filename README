@@ -1,1 +1,11 @@
-ELEC223
+ARM
+--------------------------------------
+
+Il y a 16 registres sur l'architecture ARM.
+
+
+Bit banging 
+--------------------------------------
+
+Technique logiciel d'échantillonnage et de définition de l'état d'une patte sur un microcontrôleur.
+Cette technique peut par exemple être employée pour implémenter le protocole ISP au niveau logiciel.
