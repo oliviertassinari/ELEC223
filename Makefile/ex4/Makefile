@@ -6,11 +6,11 @@ all: png bb
 png: $(JPGFILES:.jpg=.png)
 
 bb: $(PNGFILES:.png=.eps)
-	grep %%BoundingBox $^
-	rm -f $^
+	@grep %%BoundingBox $^
+	@rm -f $^
 
 %.eps: %.png
-	convert $< $@
+	@convert $< $@
 
 %.png: %.jpg
 	convert $< $@
