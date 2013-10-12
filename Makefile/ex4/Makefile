@@ -1,14 +1,19 @@
 JPGFILES := $(wildcard *.jpg)
+PNGFILES = $(wildcard *.png)
 
 all: png bb
 
 png: $(JPGFILES:.jpg=.png)
 
-bb:
+bb: $(PNGFILES:.png=.eps)
+	grep %%BoundingBox $^
+	rm -f $^
+
+%.eps: %.png
+	convert $< $@
 
 %.png: %.jpg
-	convert -monitor $< $@
+	convert $< $@
 
 clean:
-	for i in $(JPGFILES); do
-		rm $(subst .jpg .png $$i)); done
+	rm -f $(JPGFILES:.jpg=.png)
