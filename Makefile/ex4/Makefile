@@ -2,7 +2,7 @@ JPGFILES := $(wildcard *.jpg)
 
 all: png bb
 
-png: $(JPGFILES:*.jpg=*.png)
+png: $(JPGFILES:.jpg=.png)
 
 bb:
 

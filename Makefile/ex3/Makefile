@@ -1,6 +1,6 @@
 CFILES := $(wildcard *.c)
 
-main: $(CFILES:*.c=*.o)
+main: $(CFILES:.c=.o)
 
 clean:
 	rm -f main
