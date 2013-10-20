@@ -1,0 +1,13 @@
+On accede à l'ordre où sont stockée les sections
+text, data, rodata et bss en faisait "$> objdump -t"
+et en lisant la valeur de la colonne VMA.
+
+Pour avoir accées aux adresse de stockage des sections pile et tas,
+il faut executer "hello", puis lire heap1 et stack1.
+
+Au final les sections sont stockées dans l'ordre suivante : 
+text, rodata, data, bss, heap, stack.
+
+La pile croit vers les adresses mémoire plus faibles.
+Je suis arrivé à ce résultat apres avoir executé "hello".
+On a l'adresse de "stack1" qui est supérieure à l'adresse de "stack2".

@@ -1,29 +1,23 @@
-#include <stdint.h>
 #include <stdio.h>
+#include <stdlib.h>
 
-int32_t x = 34;
-int32_t y;
-int32_t a;
-int16_t b;
-int8_t c;
-uint32_t d;
-const char mesg[] = "Hello World!\n";
+void test()
+{
+	int stack2 = 2;
+	printf("stack2 = %p\n", &stack2);
+}
 
 int main()
 {
-	static uint8_t z;
-	uint16_t t;
+	int stack1 = 1;
+	printf("stack1 = %p\n", &stack1);
 
-	a = 1;
-	b = 2;
-	c = 3;
-	d = 4;
+	test();
 
-	y = 12;
-	z = z + 1;
-	t = y+z;
-	printf(mesg);
-	printf("x = %d, y = %d, z = %d, t = %d\n",
-	       x, y, z, t);
+	int * heap1 = malloc(sizeof(int));
+	int * heap2 = malloc(sizeof(int));
+
+	printf("heap1 = %p\nheap2 = %p\n", heap1, heap2);
+
 	return 0;
 }
