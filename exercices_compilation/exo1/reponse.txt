@@ -3,4 +3,4 @@ La 1ère colonne n'est pas l'adresse mais la valeur du symbole.
 
 Sources : 
 - On trouve l'info avec "$> man objdump"
-- Ou en faisant "$> readelf -s"
+- Ou en faisant "$> readelf -s hello.o"

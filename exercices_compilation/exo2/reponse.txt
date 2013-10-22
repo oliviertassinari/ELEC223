@@ -1,0 +1,4 @@
+1/ "$> objdump -h t.o" -> rodata = 64 octets sans optimisation
+"$> objdump -s t.o"-> On retrouve les chaines de caracteres envoyé au printf. Ainsi que "Hello word!" deux fois, une fois avec \n à la fin et autre fois sans.
+
+2/ 
