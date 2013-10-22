@@ -1,5 +1,5 @@
-Correction à faire sur le transparent 87 :
-La 1ère colonne n'est pas l'adresse mais la valeur du symbole.
+Correction Ã  faire sur le transparent 87 :
+La 1Ã¨re colonne n'est pas l'adresse mais la valeur du symbole.
 
 Sources : 
 - On trouve l'info avec "$> man objdump"
