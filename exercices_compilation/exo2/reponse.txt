@@ -2,3 +2,27 @@
 "$> objdump -s t.o"-> On retrouve les chaines de caracteres envoyé au printf. Ainsi que "Hello word!" deux fois, une fois avec \n à la fin et autre fois sans.
 
 2/ 
+
+3/ static const char mesg[]
+
+Avec l'optimisation Os, le texte "Hello word!" n'est pas dupliqué, il est stocké dans .rodata.str1.1 sans \n.
+Avec l'optimisation O0, il n'y a aucune différence.
+Avec l'optimisation O1, comme pour Os dans .rodata.str1.4
+Avec l'optimisation O2, comme pour Os dans .rodata.str1.4
+Avec l'optimisation O3, comme pour Os dans .rodata.str1.4
+
+4/ const char *mesg
+
+Avec l'optimisation Os, le texte "Hello word!" n'est pas dupliqué, il est stocké dans .rodata.str1.1 avec \n
+Avec l'optimisation O0, comme pour Os dans .rodata
+Avec l'optimisation O1, comme pour Os dans .rodata.str1.4
+Avec l'optimisation O2, comme pour Os dans .rodata.str1.4
+Avec l'optimisation O3, comme pour Os dans .rodata.str1.4
+
+const char * const mesg
+
+Avec l'optimisation Os, aucune différence sauf toute les rodata sont dans .rodata.str1.1.
+Avec l'optimisation O0, le texte "Hello word!" n'est pas dupliqué et est stocké dans le .rodata avec \n.
+Avec l'optimisation O1, comme pour Os dans .rodata.str1.4
+Avec l'optimisation O2, comme pour Os dans .rodata.str1.4
+Avec l'optimisation O3, comme pour Os dans .rodata.str1.4
