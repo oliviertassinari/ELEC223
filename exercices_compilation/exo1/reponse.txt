@@ -1,6 +1,52 @@
-Correction à faire sur le transparent 87 :
-La 1ère colonne n'est pas l'adresse mais la valeur du symbole.
+Question 1/
 
-Sources : 
-- On trouve l'info avec "$> man objdump"
-- Ou en faisant "$> readelf -s hello.o"
+"$> readelf -s exo1.o"
+
+Num:    Value (en Hexa)        Size Type    Bind   Vis      Ndx Name
+
+20: 0000000000000010    16 OBJECT  GLOBAL DEFAULT  COM DaVinciCode1 (© COPYRIGHT @Gu3nol)
+21: 0000000000000010    24 OBJECT  GLOBAL DEFAULT  COM DaVinciCode2
+
+Donc dans le cas des variables *COM* la size correspond aux nombres d'octets minimums nécessaire en mémoire pour stocker la variable
+et Value correspond à l'alignement nécessaire en mémoire, ici 16 octets.
+
+Maintenant corrigeons le transparent 86 :
+
+"$> objdump -t exo1.o"
+
+SYMBOL TABLE:
+
+(Hexa)                              (Hexa)
+0000000000000010       O *COM*  0000000000000010 DaVinciCode1
+0000000000000018       O *COM*  0000000000000010 DaVinciCode2
+
+Dans le cas des variables *COM* la 1ere colonne correspond aux nombres d'octets minimums nécessaire en mémoire pour stocker la variable.
+Tandis que la 2eme colonne correspond à l'alignement nécessaire en mémoire.
+
+
+ANNEXE :
+
+La table des symboles d'un fichier objet contient les informations permettant de localiser et de repositionner les définitions et références symboliques d'un programme. Un indice dans une table de symbole est un indice de ce tableau.
+
+typedef struct {
+    uint32_t      st_name;
+    Elf32_Addr    st_value;
+    uint32_t      st_size;
+    unsigned char st_info;
+    unsigned char st_other;
+    uint16_t      st_shndx;
+} Elf32_Sym;
+
+typedef struct {
+    uint32_t      st_name;
+    unsigned char st_info;
+    unsigned char st_other;
+    uint16_t      st_shndx;
+    Elf64_Addr    st_value;
+    uint64_t      st_size;
+} Elf64_Sym;
+
+SHN_COMMON
+    Les symboles définis par rapport à cette section sont des symboles communs, comme par exemple des COMMON Fortran ou des variables externes C non allouées.
+
+source : http://manpagesfr.free.fr/man/man5/elf.5.html
