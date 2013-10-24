@@ -35,7 +35,7 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY
 
 Avec l'option Os, le compilateur essaye de minimiser longueur du code généré.
-
+Le .text est plus court par rapport à la compilation sans optimisation.
 
 
 Optimisation -O0
@@ -53,6 +53,10 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY
   5 .ARM.attributes 00000030  00000000  00000000  0000015f  2**0
                   CONTENTS, READONLY
+
+Le compilateur n'effectue aucune optimisation. La section rodata
+contient la variable mesg globale et d'affectation immediate.
+
 
 
 Optimisation -O1
@@ -72,6 +76,8 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY
   6 .ARM.attributes 00000030  00000000  00000000  00000127  2**0
                   CONTENTS, READONLY
+
+La section .text est plus petite que la section .text sans optimisation.
 
 
 Optimisation -O2
