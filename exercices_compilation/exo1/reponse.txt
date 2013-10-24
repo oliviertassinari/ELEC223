@@ -10,7 +10,7 @@ Num:    Value (en Hexa)        Size Type    Bind   Vis      Ndx Name
 Donc dans le cas des variables *COM* la size correspond aux nombres d'octets minimums nécessaire en mémoire pour stocker la variable
 et Value correspond à l'alignement nécessaire en mémoire, ici 16 octets.
 
-Maintenant corrigeons le transparent 86 :
+Maintenant corrigeons le transparent 88 :
 
 "$> objdump -t exo1.o"
 
