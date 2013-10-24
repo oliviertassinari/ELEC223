@@ -1,9 +1,31 @@
-1/ On accède à l'ordre où sont stockée les sections text, data, rodata et bss en faisait "$> objdump -t hello", puis en lisant la valeur de la colonne VMA.
-Pour avoir accéder aux adresses de stockage des sections pile et tas, il faut exécuter "hello", puis lire heap1 et stack1.
+Question 1/
+
+On accède à l'ordre où sont stockée les sections text, data, rodata et bss en faisait
+"$> objdump -t hello", puis en lisant la valeur de la colonne VMA.
+
+Idx Name          Size      VMA               LMA               File off  Algn
+
+ 12 .text         00000244  0000000000400490  0000000000400490  00000490  2**4
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 14 .rodata       0000002a  00000000004006e0  00000000004006e0  000006e0  2**2
+                  CONTENTS, ALLOC, LOAD, READONLY, DATA
+ 23 .data         00000010  0000000000601038  0000000000601038  00001038  2**3
+                  CONTENTS, ALLOC, LOAD, DATA
+ 24 .bss          00000008  0000000000601048  0000000000601048  00001048  2**2
+                  ALLOC
+
+Pour avoir accéder aux adresses de stockage des sections pile et tas j'ai crée un exectuable "exo3"
+Il suffit de lire les valeurs de heap1 et stack1.
+
+stack1 = 0x7fffb19d0ba4
+stack2 = 0x7fffb19d0b8c
+heap1 = 0x1e48010
+heap2 = 0x1e48030
 
 Au final les sections sont stockées dans l'ordre suivant : text, rodata, data, bss, heap, stack.
 
-2/ La pile croit vers les adresses mémoire plus faibles.
-Je suis arrivé à ce résultat après avoir exécuté "hello".
-On a l'adresse de "stack1" qui est supérieure à l'adresse de "stack2".
+
+Question 2/
+
+On a stack2 < stack1, par consequence la pile croît vers les adresses mémoire plus faibles.
 On voit également que le tas croit vers les adresses plus élevées.
