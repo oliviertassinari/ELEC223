@@ -1,10 +1,10 @@
 Question 1/
 
-La rodata data du slide a une longueur de 48 octects.
-Or cette section doit contenir la variable mesg et la chaîne de caractere du printf.
-Au minimul il faut qu'on y stocke les 12 caracteres du "Hello World!" le retour chario et le delimiteur de fin de chaine,
-soit 15 caracteres. Puis il faut qu'on stocke les 31 caracteres envoyé au printf plus le délimiteur.
-On a donc au minimum besoin de 46 octects. En ajoutant de l'offset, l'adressage précedent est compatible avec le slide.
+La rodata data du slide a une longueur de 48 octets.
+Or cette section doit contenir la variable mesg et la chaîne de caractères du printf.
+Au minimum il faut qu'on y stocke les 12 caractères du "Hello World!" le retour chariot et le délimiteur de fin de chaine,
+soit 15 caractères. Puis il faut qu'on stocke les 31 caractères envoyé au printf plus le délimiteur.
+On a donc au minimum besoin de 46 octets. En ajoutant de l'offset, l'adressage précédent est compatible avec le slide.
 Si on avait fait un "$> objdump -s t.o" on aurait eu :
 
 0000 48656c6c 6f20576f 726c6421 0a000000  Hello World!....
@@ -34,7 +34,7 @@ Idx Name          Size      VMA       LMA       File off  Algn
   7 .ARM.attributes 00000030  00000000  00000000  0000011a  2**0
                   CONTENTS, READONLY
 
-Avec l'option Os, le compilateur essaye de minimiser longueur du code genéré.
+Avec l'option Os, le compilateur essaye de minimiser longueur du code généré.
 
 
 
@@ -101,14 +101,14 @@ Question 3/
 
 static const char mesg[]
 
-Avec l'optimisation Os, le texte "Hello word!" n'est pas dupliqué, il est stocké dans .rodata.str1.1 sans \n
+Avec l'optimisation Os, le texte "Hello Word!" n'est pas dupliqué, il est stocké dans .rodata.str1.1 sans \n
 Avec l'optimisation O0, il n'y a aucune différence.
 Avec l'optimisation O1, comme pour Os dans .rodata.str1.4
 Avec l'optimisation O2, comme pour Os dans .rodata.str1.4
 
 L'une des optimisations activées pour Os, O1 et O2 est -fmerge-constants,
 mesg devenant une constante utilisable uniquement dans le fichier t.c,
-le compilateur peut fusioner la variable globale et la variable d'affectation immédiate.
+le compilateur peut fusionner la variable globale et la variable d'affectation immédiate.
 
 source : http://gcc.gnu.org/onlinedocs/gcc/Optimize-Options.html
 
@@ -132,13 +132,13 @@ Avec l'optimisation O0, comme pour Os dans .rodata
 Avec l'optimisation O1, comme pour Os dans .rodata.str1.4
 Avec l'optimisation O2, comme pour Os dans .rodata.str1.4
 
-Cette fois la différence dans les séctions n'est pas du à l'optimisation. La variable mesg devient un pointer.
+Cette fois la différence dans les sections n'est pas du à l'optimisation. La variable mesg devient un pointer.
 Il n'y pas plus de variable d'affectation immédiate crée puisqu'on fait référence à mesg par son adresse.
 
 
 const char * const mesg
 
-Avec l'optimisation Os, aucune différence avec la question 2 sauf toute les rodata sont dans .rodata.str1.1.
-Avec l'optimisation O0, le texte "Hello word!" n'est pas dupliqué et est stocké dans le .rodata avec \n.
+Avec l'optimisation Os, aucune différence avec la question 2 sauf toute les .rodata sont dans .rodata.str1.1.
+Avec l'optimisation O0, le texte "Hello Word!" n'est pas dupliqué et est stocké dans le .rodata avec \n.
 Avec l'optimisation O1, comme pour Os dans .rodata.str1.4
 Avec l'optimisation O2, comme pour Os dans .rodata.str1.4
