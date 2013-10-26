@@ -1,0 +1,17 @@
+Pour les commentaires :
+
+/**
+
+*/
+
+// XXX TODO
+
+Pour GIT :
+
+Faire des commits tout les 5 minutes
+
+Tout en UTF8 sans BOM
+
+Pas de binaires
+
+commit -a -m "WIP"
