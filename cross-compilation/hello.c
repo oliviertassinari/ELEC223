@@ -1,8 +1,9 @@
-#include <stdio.h>
+#include "serial.h"
 
 int main()
 {
-  printf("Hello World\n");
+  serial_init();
+  serial_puts("Hello World!");
 
   return 1;
 }

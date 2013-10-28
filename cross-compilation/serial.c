@@ -2,13 +2,14 @@
 #define UTXH0 (*(volatile uint8_t *)0x01D0020)
 #define URXH0 (*(volatile uint8_t *)0x01D024)
 #define ULCON0 (*(volatile uint8_t *)0x01D0000)
-#define UCON0 (*(volatile uint8_t *)0x01D0004)
+#define UCON0 (*(volatile uint16_t *)0x01D0004)
 #define UBRDIV0 (*(volatile uint16_t *)0x01D0028)
 
 void serial_init()
 {
   ULCON0 = 0x3;
-  UBRDIV0 = (uint16_t)(40000000 / (115200 x 16)+0.5 ) -1;
+  UCON0 = 0x5;
+  UBRDIV0 = (uint16_t)(33000000 / (115200 x 16)+0.5) - 1;
 }
 
 void serial_putc(uint8_t c)
