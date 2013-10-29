@@ -7,5 +7,5 @@ hello.lst: $(CFILES:.c=.o)
 	arm-none-eabi-gcc -std=gnu99 -O2 -c $< -o $@
 
 clean:
-	rm hello.lst
+	rm -f hello.lst
 	rm -f *.o
