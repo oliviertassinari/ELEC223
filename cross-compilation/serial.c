@@ -7,9 +7,9 @@
 
 void serial_init()
 {
-  ULCON0 = 0x3;
-  UCON0 = 0x5;
-  UBRDIV0 = (uint16_t)(33000000 / (115200 x 16)+0.5) - 1;
+	ULCON0 = 0x3;
+	UCON0 = 0x5;
+	UBRDIV0 = (uint16_t)(33000000 / (115200 x 16)+0.5) - 1;
 }
 
 void serial_putc(uint8_t c)
@@ -24,6 +24,16 @@ uint8_t serial_getc()
 
 }
 
-void serial_puts(char s)
+void serial_puts(char string[])
 {
+    char charCurrent = 0;
+    int i = 0;
+
+    do
+    {
+        charCurrent = string[i];
+        i++;
+        serial_putc(charCurrent);
+    }
+    while(charCurrent != '\0');
 }
