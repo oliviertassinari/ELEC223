@@ -2,10 +2,10 @@ SRCFILES := $(wildcard *.c)
 
 .PHONY: clean
 
-hello.lst: $(CFILES:.c=.o)
-	arm-none-eabi-gcc -Wl,-c ldscript $^ -o $@
+hello.lst: $(SRCFILES:.c=.o) ldscript.ld
+	arm-none-eabi-gcc -Wl,-T ldscript.ld -O2 $^ -o $@
 
-%.o : %.c %.h
+%.o : %.c
 	arm-none-eabi-gcc -std=gnu99 -O2 -c $< -o $@
 
 clean:
