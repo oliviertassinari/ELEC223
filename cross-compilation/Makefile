@@ -1,13 +1,14 @@
-SRCFILES := $(wildcard *.c)
+CC = arm-none-eabi-gcc
+CFLAGS = -std=gnu99 -O1 -Wall -Wextra -Werror -nostdlib
+LDFLAGS = -Wl,-T ldscript.ld
+SRCFILES = $(wildcard *.c)
 
 .PHONY: clean
 
-hello.lst: $(SRCFILES:.c=.o) ldscript.ld
-	arm-none-eabi-gcc -Wl,-T ldscript.ld -O2 $^ -o $@
+hello.lst: $(SRCFILES:.c=.o)
+	$(CC) $(CFLAGS) $(LDFLAGS) $^ -o $@
 
-%.o : %.c
-	arm-none-eabi-gcc -std=gnu99 -O2 -c $< -o $@
+serial.o: serial.h
 
 clean:
-	@rm -f hello.lst
-	@rm -f *.o
+	rm -f *.o hello.lst

@@ -30,20 +30,20 @@ void serial_init()
 {
   ULCON0 = 0x3;
   UCON0 = 0x5;
-  UBRDIV0 = (uint16_t)(baudValue) - 1;
+  UBRDIV0 = 0x22;
 }
 
-void serial_putc(uint8_t c)
+void serial_putc(char c)
 {
   // We wait an empty buffer
-  while(UTRSTAT0 & (1 << 1) == 0){}
+  while((UTRSTAT0 & (1 << 1)) == 0){}
   UTXH0 = c;
 }
 
-uint8_t serial_getc()
+char serial_getc()
 {
   // We wait data
-  while(UTRSTAT0 & (1 << 0) == 0){}
+  while((UTRSTAT0 & (1 << 0)) == 0){}
   return URXH0;
 }
 

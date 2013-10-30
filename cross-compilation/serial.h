@@ -2,8 +2,8 @@
 #define SERIAL_H
 
 void serial_init();
-void serial_putc(uint8_t c);
-uint8_t serial_getc();
+void serial_putc(char c);
+char serial_getc();
 void serial_puts(char string[]);
 
 #endif
