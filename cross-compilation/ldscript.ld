@@ -19,4 +19,16 @@ SECTIONS
                 *(.rodata)
                 *(.rodata*)
        } >RAM
+
+       .data :
+       {
+                *(.data)
+                . = 0;
+       } >RAM
+
+       .bss :
+       {
+                *(.bss)
+                . = 0;
+       } >RAM
 }
