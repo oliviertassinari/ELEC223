@@ -4,6 +4,6 @@
 void serial_init();
 void serial_putc(char c);
 char serial_getc();
-void serial_puts(char string[]);
+void serial_puts(const char* s);
 
 #endif
