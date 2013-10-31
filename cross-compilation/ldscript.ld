@@ -28,7 +28,8 @@ SECTIONS
 
        .bss :
        {
+                _bss_start = .;
                 *(.bss)
-                . = 0;
+                _bss_end = .;
        } >RAM
 }

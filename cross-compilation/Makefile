@@ -6,7 +6,7 @@ OBJDUMP = arm-none-eabi-objdump
 CFLAGS = -std=gnu99 -O1 -Wall -Wextra -Werror -nostdlib
 LDFLAGS = -T ldscript.ld
 CFILES = $(wildcard *.c)
-OFILES = $(CFILES:.c=.o) crt0.o
+OFILES = crt0.o $(CFILES:.c=.o)
 
 .PHONY: clean
 
