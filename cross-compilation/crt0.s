@@ -1,5 +1,5 @@
 _start:
-	bl bootloader
+	bl init
     bl main
     b _end
 
