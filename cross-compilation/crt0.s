@@ -1,4 +1,5 @@
 _start:
+	bl init
     bl main
     b _end
 
