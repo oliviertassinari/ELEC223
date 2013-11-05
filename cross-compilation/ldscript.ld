@@ -23,7 +23,6 @@ SECTIONS
        .data :
        {
                 *(.data)
-                . = 0;
        } >RAM
 
        .bss :
