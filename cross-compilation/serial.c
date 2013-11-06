@@ -21,8 +21,8 @@
 
 
 /**
-   Functions designed to use the serial port 0
-**/
+ *  Functions designed to use the serial port 0
+ */
 
 void serial_init()
 {
