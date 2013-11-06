@@ -1,4 +1,5 @@
 #include "serial.h"
+#include "led.h"
 
 int bssvalue1;
 char bssvalue2;
@@ -11,6 +12,9 @@ int main()
 
   serial_init();
   serial_puts("Hello World!");
+
+  led_init();
+  led_blink();
 
   return 0;
 }

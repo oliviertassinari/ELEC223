@@ -16,6 +16,7 @@ OFILES = crt0.o $(CFILES:.c=.o)
 .PHONY: clean
 
 hello.lst: hello
+	rm -f $@
 	$(OBJDUMP) -d $< >> $@
 
 hello: $(OFILES)
