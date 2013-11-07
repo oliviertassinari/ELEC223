@@ -16,8 +16,7 @@ OFILES = crt0.o $(CFILES:.c=.o)
 .PHONY: clean
 
 hello.lst: hello
-	rm -f $@
-	$(OBJDUMP) -d $< >> $@
+	$(OBJDUMP) -d $< > $@
 
 hello: $(OFILES)
 	$(LD) $(LDFLAGS) $^ -o $@

@@ -14,6 +14,9 @@
 // TCNTB0 Timer 0 count buffer register
 #define TCNTB0 (*(volatile uint16_t *)0x01D5000C)
 
+// TCNTB0 Timer 1 count buffer register
+#define TCNTB1 (*(volatile uint16_t *)0x01D50018)
+
 /**
  * 1 second
  * 32*(249+1)*8250 = 66 000 000
@@ -21,7 +24,7 @@
 
 void timer_sleep_1s()
 {
-	while(TCNTB0 != 0);
+  while(TCNTB0 != 0 && TCNTB1 != 0);
 
 
 }

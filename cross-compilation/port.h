@@ -11,7 +11,9 @@
 #define setPortMaskZero(port, mask) ((port) &= ~(mask))
 #define setPortMaskOne(port, mask) ((port) |= (mask))
 
-#define setPortZero(port, n) (setPortMaskZero(port, getPortMask(n)))
-#define setPortOne(port, n) (setPortMaskOne(port, getPortMask(n)))
+#define setPortMask(port, mask, value)                                  \
+  (value ? setPortMaskOne(port, mask) : setPortMaskZero(port, mask))
+
+#define setPort(port, n, value) (setPortMask(port, getPortMask(n), value))
 
 #endif

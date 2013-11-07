@@ -15,7 +15,7 @@ int main()
   serial_puts("Hello World!");
 
   led_init();
-  led_blink();
+  led_scanner();
 
   timer_sleep_1s();
 
