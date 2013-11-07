@@ -23,26 +23,26 @@
 
 void led_init()
 {
-  // Input C1
+  // C1 Output
   setPortOne(PCONC, 2);
   setPortZero(PCONC, 3);
 
-  // Input C2
+  // C2 Output
   setPortOne(PCONC, 4);
   setPortZero(PCONC, 5);
 
-  // Input C3
+  // C3 Output
   setPortOne(PCONC, 6);
   setPortZero(PCONC, 7);
 
-  // Disable pull-up C1 - C3
+  // C1 - C3 Disable pull-up 
   setPortMaskZero(PUPC, 7 << 1);
 
-  // Input E5
+  // E5 Output
   setPortOne(PCONE, 10);
   setPortZero(PCONE, 11);
 
-  // Disable pull-up E5
+  // E5 Disable pull-up 
   setPortOne(PUPE, 5);
 }
 

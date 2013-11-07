@@ -1,5 +1,6 @@
 #include "serial.h"
 #include "led.h"
+#include "timer.h"
 
 int bssvalue1;
 char bssvalue2;
@@ -15,6 +16,8 @@ int main()
 
   led_init();
   led_blink();
+
+  timer_sleep_1s();
 
   return 0;
 }

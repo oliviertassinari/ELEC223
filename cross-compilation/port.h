@@ -1,9 +1,9 @@
-#ifndef PORT_H
-#define PORT_H
-
 /**
  * Port macros
  */
+
+#ifndef PORT_H
+#define PORT_H
 
 #define getPortMask(n) (1 << (n))
 
