@@ -5,7 +5,10 @@
 #ifndef PORT_H
 #define PORT_H
 
-// Write port bits with a mask, other bits left alone
+/**
+ * Tools to write bytes
+ **/
+
 #define setPortMaskZero(port, mask) ((port) &= ~(mask))
 #define setPortMaskOne(port, mask) ((port) |= (mask))
 
