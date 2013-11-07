@@ -22,6 +22,9 @@ hello: $(OFILES)
 	$(LD) $(LDFLAGS) $^ -o $@
 
 serial.o: serial.h
+led.o: led.h port.h
+timer.o: timer.h port.h
+
 
 clean:
 	rm -f *.o hello.lst hello

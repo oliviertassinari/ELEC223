@@ -24,7 +24,9 @@
 
 void timer_sleep_1s()
 {
-  while(TCNTB0 != 0 && TCNTB1 != 0);
+  setPortGroup(TCFG0, 0xff, 0, 249);
+
+  //while(TCNTB0 != 0 && TCNTB1 != 0);
 
 
 }
