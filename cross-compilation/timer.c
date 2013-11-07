@@ -14,8 +14,9 @@
 // TCNTB0 Timer 0 count buffer register
 #define TCNTB0 (*(volatile uint16_t *)0x01D5000C)
 
-// TCNTB0 Timer 1 count buffer register
-#define TCNTB1 (*(volatile uint16_t *)0x01D50018)
+// TCNTO0 Timer 0 count observation register
+#define TCNTO0 (*(volatile uint16_t *)0x01D50014)
+
 
 /**
  * 1 second
@@ -24,9 +25,17 @@
 
 void timer_sleep_1s()
 {
+  // Set prescaler at 249
   setPortGroup(TCFG0, 0xff, 0, 249);
 
-  //while(TCNTB0 != 0 && TCNTB1 != 0);
+  // Set MUX at 32
+  setPortGroup(TCFG1, 0xf, 0, 4);
 
+  // Init count
+  TCNTB0 = 8250;
 
+  // Start timer 0
+  setPortGroup(TCON, 0xf, 0, 3);
+
+  while(TCNTO0 != 0);
 }

@@ -1,6 +1,7 @@
 #include <stdint.h>
 #include "led.h"
 #include "port.h"
+#include "timer.h"
 
 // PCONC Configures the pins of port C
 #define PCONC (*(volatile uint32_t *)0x01D20010)
@@ -66,18 +67,18 @@ void led_scanner()
 
   // C2
   setPort(PDATC, 2, 1);
-  for(i = 0; i < 500000; i++);
+  timer_sleep_1s();
   setPort(PDATC, 2, 0);
-  for(i = 0; i < 500000; i++);
+  timer_sleep_1s();
 
   // C3
   setPort(PDATC, 3, 1);
-  for(i = 0; i < 500000; i++);
+  timer_sleep_1s();
   setPort(PDATC, 3, 0);
-  for(i = 0; i < 500000; i++);
+  timer_sleep_1s();
 
   // E5
   setPort(PDATE, 5, 1);
-  for(i = 0; i < 500000; i++);
+  timer_sleep_1s();
   setPort(PDATE, 5, 0);
 }
