@@ -34,28 +34,26 @@ void led_init()
  **/
 void led_scanner()
 {
-  int i;
-
   // C1
   setPort(PDATC, 1, 1);
-  for(i = 0; i < 800000; i++);
+  timer_sleep(1);
   setPort(PDATC, 1, 0);
-  for(i = 0; i < 800000; i++);
+  timer_sleep(1);
 
   // C2
   setPort(PDATC, 2, 1);
-  timer_sleep_1s();
+  timer_sleep(1);
   setPort(PDATC, 2, 0);
-  timer_sleep_1s();
+  timer_sleep(1);
 
   // C3
   setPort(PDATC, 3, 1);
-  timer_sleep_1s();
+  timer_sleep(1);
   setPort(PDATC, 3, 0);
-  timer_sleep_1s();
+  timer_sleep(1);
 
   // E5
   setPort(PDATE, 5, 1);
-  timer_sleep_1s();
+  timer_sleep(1);
   setPort(PDATE, 5, 0);
 }

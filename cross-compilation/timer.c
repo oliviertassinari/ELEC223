@@ -31,11 +31,11 @@
 
 
 /**
- * 1 second
- * 32*(249+1)*8250 = 66 000 000
+ * @note            66 000 000 / 32*(1+249)*8250 = 1 s
+ *
+ * @param time      in seconde
  */
-
-void timer_sleep_1s()
+void timer_sleep(int time)
 {
   // Wait stopped timer 0
   while((TCON & 1) == 1);
@@ -47,7 +47,7 @@ void timer_sleep_1s()
   setPortGroup(TCFG1, 0xf, 0, 4);
 
   // Init count 8250
-  TCNTB0 = 8250;
+  TCNTB0 = 8250*time;
   TCMPB0 = 0;
 
   // Manual update timer 0
@@ -67,39 +67,52 @@ void timer_sleep_1s()
 }
 
 /**
- * Buzz at around 2kHz
- * 66 000 000 / 2*1*15000 = 2.2 kHz
- **/
-void buzzer_start()
+ * @note                 66 000 000 / 2*(1+32)*1000 = 1 kHz
+ *
+ * @param frequency      in kHz
+ */
+void buzzer_start(int frequency)
 {
-  // Wait stopped timer 3
-  while((TCON & (1 << 16)) == 1);
+  if(frequency != 0)
+  {
+    // Wait stopped timer 3
+    while((TCON & (1 << 16)) == 1);
 
-  // E6 Mode TOUT3
-  setPortGroup(PCONE, 3, 12, 2);
+    // E6 Mode TOUT3
+    setPortGroup(PCONE, 3, 12, 2);
 
-  // E6 Disable pull-up
-  setPort(PUPE, 6, 1);
+    // E6 Disable pull-up
+    setPort(PUPE, 6, 1);
 
-  // Set prescaler at 0
-  setPortGroup(TCFG0, 0xff, 8, 0);
+    // Set prescaler at 32
+    setPortGroup(TCFG0, 0xff, 8, 32);
 
-  // Set MUX at 2
-  setPortGroup(TCFG1, 0xf, 12, 0);
+    // Set MUX at 2
+    setPortGroup(TCFG1, 0xf, 12, 0);
 
-  // Init count 15000
-  TCNTB3 = 15000;
-  TCMPB3 = 7500;
+    int ct = 1000/frequency;
 
-  // Manual update timer 3
-  setPortGroup(TCON, 0xf, 16, 2);
+    // Init count 15000
+    TCNTB3 = ct;
+    TCMPB3 = ct/2;
 
-  // Start timer 3
-  setPortGroup(TCON, 0xf, 16, 9);
+    // Manual update timer 3
+    setPortGroup(TCON, 0xf, 16, 2);
+
+    // Start timer 3
+    setPortGroup(TCON, 0xf, 16, 9);
+  }
 }
 
 void buzzer_end()
 {
   // Stop timer 3
   setPort(TCON, 16, 0);
+}
+
+void buzzer(int frequency, int time)
+{
+  buzzer_start(frequency);
+  timer_sleep(time);
+  buzzer_end();
 }
