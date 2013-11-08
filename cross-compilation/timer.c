@@ -37,8 +37,8 @@
 
 void timer_sleep_1s()
 {
-  // Wait the end
-  while(TCNTO0 != 0);
+  // Wait stopped timer 0
+  while((TCON & 1) == 1);
 
   // Set prescaler at 249
   setPortGroup(TCFG0, 0xff, 0, 249);
@@ -61,14 +61,20 @@ void timer_sleep_1s()
 
   // Wait the end
   while(TCNTO0 != 0);
+
+  // Stop timer 0
+  setPort(TCON, 0, 0);
 }
 
 /**
  * Buzz at around 2kHz
  * 66 000 000 / 2*1*15000 = 2.2 kHz
  **/
-void buzzer()
+void buzzer_start()
 {
+  // Wait stopped timer 3
+  while((TCON & (1 << 16)) == 1);
+
   // E6 Mode TOUT3
   setPortGroup(PCONE, 3, 12, 2);
 
@@ -90,4 +96,10 @@ void buzzer()
 
   // Start timer 3
   setPortGroup(TCON, 0xf, 16, 9);
+}
+
+void buzzer_end()
+{
+  // Stop timer 3
+  setPort(TCON, 16, 0);
 }

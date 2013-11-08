@@ -17,7 +17,9 @@ int main()
   led_init();
   led_scanner();
 
-  buzzer();
+  buzzer_start();
+  timer_sleep_1s();
+  buzzer_end();
 
   return 0;
 }
