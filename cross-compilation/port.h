@@ -1,7 +1,3 @@
-/**
- * Port macros
- */
-
 #ifndef PORT_H
 #define PORT_H
 
@@ -24,10 +20,7 @@
 #define PUPE (*(volatile uint32_t *)0x01D20030)
 
 
-/**
- * Tools to write bytes
- **/
-
+// Tools to write bytes
 #define setPortMaskZero(port, mask) ((port) &= ~(mask))
 #define setPortMaskOne(port, mask) ((port) |= (mask))
 

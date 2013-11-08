@@ -6,26 +6,22 @@
 void led_init()
 {
   // C1 Mode output
-  setPort(PCONC, 2, 1);
-  setPort(PCONC, 3, 0);
+  setPortGroup(PCONC, 3, 2, 1);
   setPort(PDATC, 1, 0);
 
   // C2 Mode output
-  setPort(PCONC, 4, 1);
-  setPort(PCONC, 5, 0);
+  setPortGroup(PCONC, 3, 4, 1);
   setPort(PDATC, 2, 0);
 
   // C3 Mode output
-  setPort(PCONC, 6, 1);
-  setPort(PCONC, 7, 0);
+  setPortGroup(PCONC, 3, 6, 1);
   setPort(PDATC, 3, 0);
 
   // C1 - C3 Disable pull-up
   setPortMask(PUPC, 7 << 1, 0);
 
   // E5 Mode output
-  setPort(PCONE, 10, 1);
-  setPort(PCONE, 11, 0);
+  setPortGroup(PCONC, 3, 10, 1);
   setPort(PDATE, 5, 0);
 
   // E5 Disable pull-up
