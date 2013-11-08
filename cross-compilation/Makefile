@@ -6,8 +6,8 @@ LD = arm-none-eabi-ld
 OBJDUMP = arm-none-eabi-objdump
 
 # Various settings
-CFLAGS = -std=gnu99 -O1 -Wall -Wextra -Werror -nostdlib
-LDFLAGS = -T ldscript.ld
+CFLAGS = -std=gnu99 -O1 -Wall -Wextra -Werror -nostdlib -g
+LDFLAGS = -T ldscript.ld -g
 
 # Source files
 CFILES = $(wildcard *.c)

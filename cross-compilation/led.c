@@ -61,9 +61,9 @@ void led_scanner()
 
   // C1
   setPort(PDATC, 1, 1);
-  for(i = 0; i < 500000; i++);
+  for(i = 0; i < 800000; i++);
   setPort(PDATC, 1, 0);
-  for(i = 0; i < 500000; i++);
+  for(i = 0; i < 800000; i++);
 
   // C2
   setPort(PDATC, 2, 1);
