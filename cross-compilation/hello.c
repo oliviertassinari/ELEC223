@@ -28,7 +28,7 @@ int main()
   led_init();
   led_scanner();
 
-  buzzer(2, 1);
+  buzzer(0.5, 1); // Buzz 1s
 
   int melody[] = {  C,  b,  g,  C,  b,   e,  R,  C,  c,  g, a, C };
   int beats[]  = { 16, 16, 16,  8,  8,  16, 32, 16, 16, 16, 8, 8 };
