@@ -69,11 +69,11 @@ void timer_sleep(int time)
 /**
  * @note                 66 000 000 / 2*(1+32)*1000 = 1 kHz
  *
- * @param frequency      in kHz
+ * @param periode      in ms
  */
-void buzzer_start(int frequency)
+void buzzer_start(int periode)
 {
-  if(frequency != 0)
+  if(periode != 0)
   {
     // Wait stopped timer 3
     while((TCON & (1 << 16)) == 1);
@@ -90,11 +90,11 @@ void buzzer_start(int frequency)
     // Set MUX at 2
     setPortGroup(TCFG1, 0xf, 12, 0);
 
-    int ct = 1000/frequency;
+    int ct = periode*1000;
 
-    // Init count 15000
+    // Init count 3
     TCNTB3 = ct;
-    TCMPB3 = ct/2;
+    TCMPB3 = ct >> 1;
 
     // Manual update timer 3
     setPortGroup(TCON, 0xf, 16, 2);
@@ -110,9 +110,9 @@ void buzzer_end()
   setPort(TCON, 16, 0);
 }
 
-void buzzer(int frequency, int time)
+void buzzer(int periode, int time)
 {
-  buzzer_start(frequency);
+  buzzer_start(periode);
   timer_sleep(time);
   buzzer_end();
 }

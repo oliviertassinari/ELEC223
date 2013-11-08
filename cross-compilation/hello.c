@@ -7,15 +7,15 @@ char bssvalue2;
 int data1 = 5;
 char data2 = '5';
 
-//       note, frequency.
-#define  c     0.261    // 261 Hz
-#define  d     0.293    // 293 Hz
-#define  e     0.329    // 329 Hz
-#define  f     0.349    // 349 Hz
-#define  g     0.392    // 392 Hz
-#define  a     0.440    // 440 Hz
-#define  b     0.493    // 493 Hz
-#define  C     0.523    // 523 Hz
+//       note, periode, frequency.
+#define  c     3.83    // 261 Hz
+#define  d     3.41    // 293 Hz
+#define  e     3.04    // 329 Hz
+#define  f     2.86    // 349 Hz
+#define  g     2.55    // 392 Hz
+#define  a     2.27    // 440 Hz
+#define  b     2.03    // 493 Hz
+#define  C     1.91    // 523 Hz
 #define  R     0 		// Pause
 
 int main()
