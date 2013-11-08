@@ -7,16 +7,16 @@ char bssvalue2;
 int data1 = 5;
 char data2 = '5';
 
-//       note, periode, frequency.
-#define  c     3.83    // 261 Hz
-#define  d     3.41    // 293 Hz
-#define  e     3.04    // 329 Hz
-#define  f     2.86    // 349 Hz
-#define  g     2.55    // 392 Hz
-#define  a     2.27    // 440 Hz
-#define  b     2.03    // 493 Hz
-#define  C     1.91    // 523 Hz
-#define  R     0 		// Pause
+//       note, periode(ms), frequency.
+#define  MI6     0.753    // 1328 Hz
+#define  SI5     0.101    // 988 Hz
+#define  DO6     0.956    // 1046 Hz
+#define  RE6     0.851    // 1175 Hz
+#define  LA5     1.13    // 880 Hz
+#define  SOL6    0.638    // 1568 Hz
+#define  FA6     0.716    // 1397 Hz
+#define  LA6     0.568    // 1760 Hz
+#define  R       0 		// Pause
 
 int main()
 {
@@ -30,13 +30,14 @@ int main()
 
   buzzer(0.5, 10); // Buzz 2kHz 1s
 
-  int melody[] = {  C,  b,  g,  C,  b,   e,  R,  C,  c,  g, a, C };
-  int beats[]  = { 16, 16, 16,  8,  8,  16, 32, 16, 16, 16, 8, 8 };
+  // Tetris melody
+
+  int melody[] = {MI6, R,  SI5, DO6, SI5, R, LA5, DO6, MI6, R, RE6, DO6, SI5, R, RE6, DO6, SI5, R, SI5, DO6, RE6, R, MI6, R, DO6, R, LA5, R, LA5, R, R, R, LA5, R, RE6, FA6, LA6, R, SOL6, FA6, MI6, R, R, DO6, MI6, R, R, DO6, MI6, R, RE6, DO6, SI5, R, SI5, DO6, RE6, R, MI6, R, DO6, R, LA5, R, LA5};
   int MAX_COUNT = sizeof(melody);
 
   for (int i=0; i<MAX_COUNT; i++)
   {
- 	buzzer(melody[i], beats[i]);
+ 	buzzer(melody[i], 4);
   }
 
   return 0;
