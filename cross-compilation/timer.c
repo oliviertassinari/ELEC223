@@ -12,13 +12,23 @@
 #define TCON (*(volatile uint32_t *)0x01D50008)
 
 // TCNTB0 Timer 0 count buffer register
-#define TCNTB0 (*(volatile uint16_t *)0x01D5000C)
+#define TCNTB0 (*(volatile uint32_t *)0x01D5000C)
 
 // TCMPB0 Timer 0 compare buffer register
-#define TCMPB0 (*(volatile uint16_t *)0x01D50010)
+#define TCMPB0 (*(volatile uint32_t *)0x01D50010)
 
 // TCNTO0 Timer 0 count observation register
-#define TCNTO0 (*(volatile uint16_t *)0x01D50014)
+#define TCNTO0 (*(volatile uint32_t *)0x01D50014)
+
+// TCNTB0 Timer 3 count buffer register
+#define TCNTB3 (*(volatile uint32_t *)0x01D50030)
+
+// TCMPB0 Timer 3 compare buffer register
+#define TCMPB3 (*(volatile uint32_t *)0x01D50034)
+
+// TCNTO0 Timer 3 count observation register
+#define TCNTO3 (*(volatile uint32_t *)0x01D50038)
+
 
 /**
  * 1 second
@@ -53,7 +63,31 @@ void timer_sleep_1s()
   while(TCNTO0 != 0);
 }
 
+/**
+ * Buzz at around 2kHz
+ * 66 000 000 / 2*1*15000 = 2.2 kHz
+ **/
 void buzzer()
 {
+  // E6 Mode TOUT3
+  setPortGroup(PCONE, 3, 12, 2);
 
+  // E6 Disable pull-up
+  setPort(PUPE, 6, 1);
+
+  // Set prescaler at 0
+  setPortGroup(TCFG0, 0xff, 8, 0);
+
+  // Set MUX at 2
+  setPortGroup(TCFG1, 0xf, 12, 0);
+
+  // Init count 15000
+  TCNTB3 = 15000;
+  TCMPB3 = 7500;
+
+  // Manual update timer 3
+  setPortGroup(TCON, 0xf, 16, 2);
+
+  // Start timer 3
+  setPortGroup(TCON, 0xf, 16, 9);
 }
