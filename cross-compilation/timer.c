@@ -33,7 +33,7 @@
 /**
  * @note            66 000 000 / 32*(1+249)*8250 = 1 s
  *
- * @param time      in seconde
+ * @param time      in deca seconde
  */
 void timer_sleep(int time)
 {
@@ -47,7 +47,7 @@ void timer_sleep(int time)
   setPortGroup(TCFG1, 0xf, 0, 4);
 
   // Init count 8250
-  TCNTB0 = 8250*time;
+  TCNTB0 = 825*time;
   TCMPB0 = 0;
 
   // Manual update timer 0
