@@ -69,39 +69,36 @@ void timer_sleep(int time)
 /**
  * @note                 66 000 000 / 2*(1+32)*1000 = 1 kHz
  *
- * @param periode      in ms
+ * @param periode      in micros
  */
 void buzzer_start(int periode)
 {
-  if(periode != 0)
-  {
-    // Wait stopped timer 3
-    while((TCON & (1 << 16)) == 1);
+  // Wait stopped timer 3
+  while((TCON & (1 << 16)) == 1);
 
-    // E6 Mode TOUT3
-    setPortGroup(PCONE, 3, 12, 2);
+  // E6 Mode TOUT3
+  setPortGroup(PCONE, 3, 12, 2);
 
-    // E6 Disable pull-up
-    setPort(PUPE, 6, 1);
+  // E6 Disable pull-up
+  setPort(PUPE, 6, 1);
 
-    // Set prescaler at 32
-    setPortGroup(TCFG0, 0xff, 8, 32);
+  // Set prescaler at 32
+  setPortGroup(TCFG0, 0xff, 8, 32);
 
-    // Set MUX at 2
-    setPortGroup(TCFG1, 0xf, 12, 0);
+  // Set MUX at 2
+  setPortGroup(TCFG1, 0xf, 12, 0);
 
-    int ct = periode*1000;
+  int ct = periode;
 
-    // Init count 3
-    TCNTB3 = ct;
-    TCMPB3 = ct >> 1;
+  // Init count 3
+  TCNTB3 = ct;
+  TCMPB3 = ct >> 1;
 
-    // Manual update timer 3
-    setPortGroup(TCON, 0xf, 16, 2);
+  // Manual update timer 3
+  setPortGroup(TCON, 0xf, 16, 2);
 
-    // Start timer 3
-    setPortGroup(TCON, 0xf, 16, 9);
-  }
+  // Start timer 3
+  setPortGroup(TCON, 0xf, 16, 9);
 }
 
 void buzzer_end()

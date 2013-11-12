@@ -48,7 +48,7 @@ void led_scanner()
 
   // C3
   setPort(PDATC, 3, 1);
-  timer_sleep(1);
+  timer_sleep(10);
   setPort(PDATC, 3, 0);
   timer_sleep(10);
 
