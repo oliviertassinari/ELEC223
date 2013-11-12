@@ -34,7 +34,7 @@
  * @note            66 000 000 / 32*(1+249)*8250 = 1 s
  *
  * @param time      in deca seconde
- */
+ **/
 void timer_sleep(int time)
 {
   // Wait stopped timer 0
@@ -67,10 +67,10 @@ void timer_sleep(int time)
 }
 
 /**
- * @note                 66 000 000 / 2*(1+32)*1000 = 1 kHz
+ * @note               66 000 000 / 2*(1+32)*1000 = 1 kHz
  *
  * @param periode      in micro seconde
- */
+ **/
 void buzzer_start(int periode)
 {
   if(periode != 0)
