@@ -8,7 +8,7 @@ OBJDUMP = arm-none-eabi-objdump
 
 INCLUDE_DIR = $(TOP_DIR)/lib/
 
-all: hello
+hello.lst: hello
 	$(OBJDUMP) -d $< > $@
 
 # Various settings
