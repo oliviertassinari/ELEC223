@@ -12,7 +12,7 @@ char hexToAscii(uint8_t h)
     }
   else
     {
-      return (h - 10) + 'A';
+      return (h - 10) + 'a';
     }
 }
 
@@ -71,11 +71,9 @@ int main()
           serial_puts(instruction);
           serial_puts("'\n\r");
 
-          address = asciiToHex(instruction[4]);
-
-          for(int i = 1; i < 8; i++)
+          for(int i = 0; i < 8; i++)
             {
-              address += 4*i*asciiToHex(instruction[4+i]);
+              address += asciiToHex(instruction[4+i]) << (28 - i*4);
             }
 
           uint32_t * pointer = (uint32_t *)address;
