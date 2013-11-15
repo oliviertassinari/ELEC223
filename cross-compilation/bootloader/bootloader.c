@@ -1,3 +1,4 @@
+
 #include <stdint.h>
 #include "serial.h"
 #include "led.h"
@@ -47,6 +48,7 @@ int main()
   char instruction[13] = "";
   int instruction_ct = 0;
   char getc;
+  uint32_t address = 0;
 
   while(1)
     {
@@ -55,7 +57,6 @@ int main()
       if(instruction_ct < 12)
         {
           serial_putc(getc);
-          serial_putc(hexToAscii(asciiToHex(getc)));
 
           instruction[instruction_ct] = getc;
           instruction_ct += 1;
@@ -67,6 +68,13 @@ int main()
           serial_puts("\n\rCommande : '");
           serial_puts(instruction);
           serial_puts("'\n\r");
+
+          address = asciiToHex(instruction[4]);
+          /*
+          for(int i = 1; i < 8; i++)
+            {
+              aze += 8*i*asciiToHex(instruction[4+i]);
+              }*/
         }
     }
 
