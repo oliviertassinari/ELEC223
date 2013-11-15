@@ -28,7 +28,7 @@ int main()
         {
           instruction_ct = 0;
           instruction[12] = '\0';
-          serial_puts("\n\r");
+          serial_puts("\n\rCommande : ");
           serial_puts(instruction);
           serial_puts("\n\r");
         }
