@@ -88,11 +88,21 @@ int main()
             case 'L':
               serial_puts("Load : ");
 
+              uint32_t value = 0;
+              int value_ct = 0;
+
               pointer = (uint32_t *)address;
 
               while(serial_getc_timeout(&getc, 50)) // 5s
               {
-                *pointer++ = getc;
+                value += asciiToHex(getc) << (28 - value_ct++*4);
+
+                if(value_ct == 8)
+                {
+                  *pointer++ = getc;
+                  value_ct = 0;
+                  value = 0;                  
+                }
               }
 
               serial_puts("Time out\n\r");
