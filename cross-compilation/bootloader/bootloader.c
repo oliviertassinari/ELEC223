@@ -95,6 +95,8 @@ int main()
                 *pointer++ = getc;
               }
 
+              serial_puts("Time out\n\r");
+
               break;
             case 'G':
               serial_puts("Execute");
