@@ -35,7 +35,7 @@
  *
  * @param time      in deca seconde
  **/
-void timer_sleep(int time)
+void timer_start(int time)
 {
   // Wait stopped timer 0
   while((TCON & 1) == 1);
@@ -58,12 +58,22 @@ void timer_sleep(int time)
 
   // Wait initialization
   while(TCNTO0 == 0);
+}
+
+void timer_stop()
+{
+  // Stop timer 0
+  setPort(TCON, 0, 0);
+}
+
+void timer_sleep(int time)
+{
+  timer_start(time);
 
   // Wait the end
   while(TCNTO0 != 0);
 
-  // Stop timer 0
-  setPort(TCON, 0, 0);
+  timer_stop();
 }
 
 /**

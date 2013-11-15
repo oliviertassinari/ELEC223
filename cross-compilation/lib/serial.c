@@ -1,5 +1,6 @@
 #include <stdint.h>
 #include "serial.h"
+#include "timer.h"
 
 // Status register
 #define UTRSTAT0 (*(volatile uint32_t *)0x01D00010)
@@ -41,6 +42,13 @@ void serial_putc(char c)
 }
 
 char serial_getc()
+{
+  // We wait data
+  while((UTRSTAT0 & (1 << 0)) == 0);
+  return URXH0;
+}
+
+char serial_getc_timeout(int time)
 {
   // We wait data
   while((UTRSTAT0 & (1 << 0)) == 0);
