@@ -43,12 +43,14 @@ int main()
   led_blink();
 
   serial_init();
-  serial_puts("Bootloader ready.\n\r");
+  serial_puts("\n\rBootloader ready.\n\r>");
 
   char instruction[13] = "";
   int instruction_ct = 0;
   char getc;
   uint32_t address = 0;
+
+
 
   while(1)
     {
@@ -70,11 +72,20 @@ int main()
           serial_puts("'\n\r");
 
           address = asciiToHex(instruction[4]);
-          /*
+
           for(int i = 1; i < 8; i++)
             {
-              aze += 8*i*asciiToHex(instruction[4+i]);
-              }*/
+              address += 4*i*asciiToHex(instruction[4+i]);
+            }
+
+          uint32_t * pointer = (uint32_t *)address;
+
+          for(int j = 7; j >= 0; j--)
+            {
+              serial_putc(hexToAscii((*pointer >> 4*j) & 0xf));
+            }
+
+          serial_puts("\n\r>");
         }
     }
 
