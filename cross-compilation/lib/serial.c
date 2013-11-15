@@ -48,11 +48,25 @@ char serial_getc()
   return URXH0;
 }
 
-char serial_getc_timeout(int time)
+int serial_getc_timeout(char* c, int time)
 {
+  timer_start(time);
+
   // We wait data
-  while((UTRSTAT0 & (1 << 0)) == 0);
-  return URXH0;
+  while((UTRSTAT0 & (1 << 0)) == 0 && TCNTO0 != 0);
+
+  timer_stop();
+
+  // new data
+  if((UTRSTAT0 & (1 << 0)) == 1)
+  {
+    *c = URXH0;
+    return 1;
+  }
+  else
+  {
+    return 0;
+  }
 }
 
 void serial_puts(const char* s)

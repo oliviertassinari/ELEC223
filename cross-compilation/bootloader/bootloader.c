@@ -86,6 +86,15 @@ int main()
           switch(instruction[0])
           {
             case 'L':
+              serial_puts("Load : ");
+
+              pointer = (uint32_t *)address;
+
+              while(serial_getc_timeout(&getc, 50)) // 5s
+              {
+                *pointer++ = getc;
+              }
+
               break;
             case 'G':
               serial_puts("Execute");
