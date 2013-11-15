@@ -42,15 +42,18 @@ int main()
   led_init();
   led_blink();
 
-  serial_init();
-  serial_puts("\n\rBootloader ready.\n\r>");
-
   char instruction[13] = "";
   int instruction_ct = 0;
-  char getc;
+  char getc = 0;
   uint32_t address = 0;
 
-
+  serial_init();
+  serial_puts("\n\rBootloader ready.\n\r");
+  serial_puts("\tL <addr> : load\n\r");
+  serial_puts("\tG <addr> : execute\n\r");
+  serial_puts("\tR <addr> : read\n\r");
+  serial_puts("\t  <addr> : 0x........\n\n\r");
+  serial_puts(">");
 
   while(1)
     {
@@ -59,15 +62,15 @@ int main()
       if(instruction_ct < 12)
         {
           serial_putc(getc);
-
-          instruction[instruction_ct] = getc;
-          instruction_ct += 1;
+          instruction[instruction_ct++] = getc;
         }
-      else if(getc == '\n' || getc == '\r')
+      else if(getc == '\n' || getc == '\r') //Entrer
         {
           serial_puts("\n\rCommande : '");
           serial_puts(instruction);
           serial_puts("'\n\r");
+
+          address = 0;
 
           for(int i = 0; i < 8; i++)
             {
@@ -76,12 +79,21 @@ int main()
 
           uint32_t * pointer = (uint32_t *)address;
 
-          for(int j = 7; j >= 0; j--)
-            {
-              serial_putc(hexToAscii((*pointer >> 4*j) & 0xf));
-            }
+          switch(instruction[0])
+          {
+            case 'L':
+              break;
+            case 'G':
+              break;
+            case 'R':
+              serial_puts("Read : ");
+              for(int j = 7; j >= 0; j--)
+                {
+                  serial_putc(hexToAscii((*pointer >> 4*j) & 0xf));
+                }
+              break;
+          }
 
-          address = 0;
           serial_puts("\n\r>");
           instruction[12] = '\0';
           instruction_ct = 0;
