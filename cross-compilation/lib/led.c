@@ -28,6 +28,24 @@ void led_init()
   setPort(PUPE, 5, 1);
 }
 
+void led_blink()
+{
+  setPort(PDATC, 1, 1);
+  setPort(PDATE, 5, 1);
+
+  timer_sleep(5);
+
+  setPort(PDATC, 1, 0);
+  setPort(PDATE, 5, 0);
+
+  setPort(PDATC, 2, 1);
+  setPort(PDATC, 3, 1);
+
+  timer_sleep(5);
+
+  setPort(PDATC, 2, 0);
+  setPort(PDATC, 3, 0);
+}
 
 /**
  * Create led scanner effect

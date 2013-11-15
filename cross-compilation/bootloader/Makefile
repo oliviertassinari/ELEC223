@@ -8,7 +8,7 @@ OBJDUMP = arm-none-eabi-objdump
 
 INCLUDE_DIR = $(TOP_DIR)/lib/
 
-hello.lst: hello
+bootloader.lst: bootloader
 	$(OBJDUMP) -d $< > $@
 
 # Various settings
@@ -23,8 +23,8 @@ OFILES = crt0.o $(CFILES:.c=.o)
 
 .PHONY: clean
 
-hello: $(OFILES)
+bootloader: $(OFILES)
 	$(LD) $(LDFLAGS) $^ -o $@
 
 clean:
-	rm -f $(OFILES) hello.lst hello
+	rm -f $(OFILES) bootloader.lst bootloader
