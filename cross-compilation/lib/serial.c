@@ -30,7 +30,7 @@ void serial_init()
   UCON0 = 0x5;
 
   // (round_off)(MCLK / (bps x 16) ) -1
-  UBRDIV0 = 0x22;
+  UBRDIV0 = 0x23;
 }
 
 void serial_putc(char c)
