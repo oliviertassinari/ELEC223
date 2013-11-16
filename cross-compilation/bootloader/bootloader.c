@@ -3,39 +3,9 @@
 #include "serial.h"
 #include "led.h"
 #include "timer.h"
+#include "convert.h"
 
-char hexToAscii(uint8_t h)
-{
-  if(h < 10)
-    {
-      return h + '0';
-    }
-  else
-    {
-      return (h - 10) + 'a';
-    }
-}
-
-uint8_t asciiToHex(char a)
-{
-  if(a <= '9')
-    {
-      return a - '0';
-    }
-  else if(a <= 'F')
-    {
-      return a - 'A' + 10;
-    }
-  else if(a <= 'f')
-    {
-      return a - 'a' + 10;
-    }
-  else
-    {
-      return 0;
-    }
-}
-
+extern uint8_t _bss_end;
 
 int main()
 {
@@ -77,50 +47,60 @@ int main()
 
           address = 0;
 
-          for(int i = 0; i < 8; i++)
-            {
-              address += asciiToHex(instruction[4+i]) << (28 - i*4);
-            }
-
-
-          switch(instruction[0])
+          if(instruction[2] == '0' && instruction[3] == 'x')
           {
-            case 'L':
-              serial_puts("Load : ");
-
-              uint32_t value = 0;
-              int value_ct = 0;
-
-              pointer = (uint32_t *)address;
-
-              while(serial_getc_timeout(&getc, 50)) // 5s
+            for(int i = 0; i < 8; i++)
               {
-                value += asciiToHex(getc) << (28 - value_ct++*4);
-
-                if(value_ct == 8)
-                {
-                  *pointer++ = getc;
-                  value_ct = 0;
-                  value = 0;                  
-                }
+                address += asciiToHex(instruction[4+i]) << (28 - i*4);
               }
+          }
 
-              serial_puts("Time out\n\r");
+          // Test wrong address
+          if(address <= _bss_end)
+          {
+            serial_puts("Wrong address : 0x");
+            serial_puti32(address);
+            serial_puts("\n\rIt must be over 0x");
+            serial_puti32(&_bss_end);
+          }
+          else
+          {
+            switch(instruction[0])
+            {
+              case 'L':
+                serial_puts("Load : ");
 
-              break;
-            case 'G':
-              serial_puts("Execute");
-              execute = (void *)address;
-              execute();
-              break;
-            case 'R':
-              serial_puts("Read : ");
-              for(int j = 7; j >= 0; j--)
+                uint32_t value = 0;
+                int value_ct = 0;
+
+                pointer = (uint32_t *)address;
+
+                while(serial_getc_timeout(&getc, 50)) // 5s
                 {
-                  pointer = (uint32_t *)address;
-                  serial_putc(hexToAscii((*pointer >> 4*j) & 0xf));
+                  value += asciiToHex(getc) << (28 - value_ct++*4);
+
+                  if(value_ct == 8)
+                  {
+                    *pointer++ = getc;
+                    value_ct = 0;
+                    value = 0;                  
+                  }
                 }
-              break;
+
+                serial_puts("Time out\n\r");
+
+                break;
+              case 'G':
+                serial_puts("Execute");
+                execute = (void *)address;
+                execute();
+                break;
+              case 'R':
+                serial_puts("Read : 0x");
+                pointer = (uint32_t *)address;
+                serial_puti32(*pointer);
+                break;
+            }
           }
 
           instruction[12] = '\0';

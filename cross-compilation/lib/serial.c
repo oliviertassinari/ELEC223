@@ -1,6 +1,7 @@
 #include <stdint.h>
 #include "serial.h"
 #include "timer.h"
+#include "convert.h"
 
 // Status register
 #define UTRSTAT0 (*(volatile uint32_t *)0x01D00010)
@@ -41,6 +42,20 @@ void serial_putc(char c)
   UTXH0 = c;
 }
 
+void serial_puts(const char* s)
+{
+  while(*s != '\0')
+    serial_putc(*s++);
+}
+
+void serial_puti32(uint32_t i)
+{
+  for(int j = 7; j >= 0; j--)
+  {
+    serial_putc(hexToAscii((i >> 4*j) & 0xf));
+  }
+}
+
 char serial_getc()
 {
   // We wait data
@@ -67,10 +82,4 @@ int serial_getc_timeout(char* c, int time)
   {
     return 0;
   }
-}
-
-void serial_puts(const char* s)
-{
-  while(*s != '\0')
-    serial_putc(*s++);
 }
