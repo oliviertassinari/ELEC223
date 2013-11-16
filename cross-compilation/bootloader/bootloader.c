@@ -5,7 +5,7 @@
 #include "timer.h"
 #include "convert.h"
 
-extern uint8_t _bss_end;
+extern uint32_t _bss_end;
 
 int main()
 {
@@ -61,7 +61,7 @@ int main()
             serial_puts("Wrong address : 0x");
             serial_puti32(address);
             serial_puts("\n\rIt must be over 0x");
-            serial_puti32(&_bss_end);
+            serial_puti32(_bss_end);
           }
           else
           {
@@ -83,7 +83,7 @@ int main()
                   {
                     *pointer++ = getc;
                     value_ct = 0;
-                    value = 0;                  
+                    value = 0;
                   }
                 }
 

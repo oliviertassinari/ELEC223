@@ -1,3 +1,6 @@
+#include <stdint.h>
+#include "convert.h"
+
 char hexToAscii(uint8_t h)
 {
   if(h < 10)
