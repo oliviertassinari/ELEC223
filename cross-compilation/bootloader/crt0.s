@@ -1,5 +1,6 @@
 _start:
     // Initialization
+    ldr r13,=0x0c7ffff0
 	bl init
     bl main
     b _end
