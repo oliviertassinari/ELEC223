@@ -84,14 +84,16 @@ int main()
                       // Load
                       if(value_ct == 8)
                         {
+                          serial_puts(" done at 0x");
+                          serial_puti32((uint32_t)pointer);
                           *pointer++ = value;
                           value_ct = 0;
                           value = 0;
-                          serial_puts(" done\n\rLoad : 0x");
+                          serial_puts("\n\rLoad : 0x");
                         }
                     }
 
-                  serial_puts("\n\rTime out 5s");
+                  serial_puts("\n\rTime out 5s without data");
 
                   break;
                 case 'G':
