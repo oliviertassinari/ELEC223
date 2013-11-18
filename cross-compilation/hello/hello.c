@@ -1,3 +1,4 @@
+#include <stdint.h>
 #include "serial.h"
 #include "led.h"
 #include "timer.h"
