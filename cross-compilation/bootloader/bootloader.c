@@ -57,8 +57,8 @@ int main()
           switch(instruction[0])
             {
             case 'L':
-              // We can write
-              if(address > (uint32_t)(&_bss_end))
+              // We can write after bss and before the end of memory
+              if(address > (uint32_t)(&_bss_end) && address < 0x0C7FFFFF)
                 {
                   uint32_t value = 0;
                   int value_ct = 0;
@@ -95,6 +95,7 @@ int main()
                   serial_puti32(address);
                   serial_puts("\n\rIt must be over 0x");
                   serial_puti32((uint32_t)(&_bss_end));
+                  serial_puts("and under 0x0C7FFFFF");
                 }
 
               break;
