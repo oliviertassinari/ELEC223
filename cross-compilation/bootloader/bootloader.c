@@ -56,7 +56,7 @@ int main()
           }
 
           // Test wrong address
-          if(address <= _bss_end)
+          if(address <= (uint32_t) &_bss_end)
           {
             serial_puts("Wrong address : 0x");
             serial_puti32(address);
