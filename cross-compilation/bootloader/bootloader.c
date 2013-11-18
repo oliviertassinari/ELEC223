@@ -95,7 +95,7 @@ int main()
                   serial_puti32(address);
                   serial_puts("\n\rIt must be over 0x");
                   serial_puti32((uint32_t)(&_bss_end));
-                  serial_puts("and under 0x0C7FFFFF");
+                  serial_puts(" and under 0x0C7FFFFF");
                 }
 
               break;
