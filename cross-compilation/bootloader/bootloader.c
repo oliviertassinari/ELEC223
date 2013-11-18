@@ -54,26 +54,20 @@ int main()
                 }
             }
 
-          // Test wrong address
-          if(0)
-            //if(address <= (uint32_t)(&_bss_end))
+          switch(instruction[0])
             {
-              serial_puts("Wrong address : 0x");
-              serial_puti32(address);
-              serial_puts("\n\rIt must be over 0x");
-              serial_puti32(_bss_end);
-            }
-          else
-            {
-              switch(instruction[0])
+            case 'L':
+              // We can write
+              if(address > (uint32_t)(&_bss_end))
                 {
-                case 'L':
-                  serial_puts("Load : 0x");
-
                   uint32_t value = 0;
                   int value_ct = 0;
 
                   pointer = (uint32_t *)address;
+
+                  serial_puts("Load at 0x");
+                  serial_puti32(address);
+                  serial_puts(" : 0x");
 
                   while(serial_getc_timeout(&getc, 50)) // 5s
                     {
@@ -84,34 +78,42 @@ int main()
                       // Load
                       if(value_ct == 8)
                         {
-                          serial_puts(" done at 0x");
-                          serial_puti32((uint32_t)pointer);
                           *pointer++ = value;
                           value_ct = 0;
                           value = 0;
-                          serial_puts("\n\rLoad : 0x");
+                          serial_puts(" done\n\rLoad at 0x");
+                          serial_puti32((uint32_t)pointer);
+                          serial_puts(" : 0x");
                         }
                     }
 
                   serial_puts("\n\rTime out 5s without data");
-
-                  break;
-                case 'G':
-                  serial_puts("Execute : 0x");
-                  serial_puti32(address);
-                  execute = (void *)address;
-                  execute();
-                  break;
-                case 'R':
-                  serial_puts("Read : 0x");
-                  pointer = (uint32_t *)address;
-                  serial_puti32(*pointer);
-                  break;
-                default:
-                  serial_puts("Wrong command");
-                  break;
                 }
+              else
+                {
+                  serial_puts("Wrong address : 0x");
+                  serial_puti32(address);
+                  serial_puts("\n\rIt must be over 0x");
+                  serial_puti32((uint32_t)(&_bss_end));
+                }
+
+              break;
+            case 'G':
+              serial_puts("Execute : 0x");
+              serial_puti32(address);
+              execute = (void *)address;
+              execute();
+              break;
+            case 'R':
+              serial_puts("Read : 0x");
+              pointer = (uint32_t *)address;
+              serial_puti32(*pointer);
+              break;
+            default:
+              serial_puts("Wrong command");
+              break;
             }
+
 
           instruction[12] = '\0';
           serial_puts("\n\r>");
