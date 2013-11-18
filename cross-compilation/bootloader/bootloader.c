@@ -81,9 +81,10 @@ int main()
 
                       value += asciiToHex(getc) << (28 - value_ct++*4);
 
+                      // Load
                       if(value_ct == 8)
                         {
-                          *pointer++ = getc;
+                          *pointer++ = value;
                           value_ct = 0;
                           value = 0;
                           serial_puts(" done\n\rLoad : 0x");
@@ -94,7 +95,8 @@ int main()
 
                   break;
                 case 'G':
-                  serial_puts("Execute");
+                  serial_puts("Execute : 0x");
+                  serial_puti32(address);
                   execute = (void *)address;
                   execute();
                   break;
